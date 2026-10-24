@@ -8,6 +8,15 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const user = await currentUser();
 
+  if (!process.env.DATABASE_URL) {
+    return NextResponse.json({
+      id: 1,
+      name: user?.fullName || "Guest User",
+      email: user?.primaryEmailAddress?.emailAddress || "guest@example.com",
+      credits: 10,
+    });
+  }
+
   try {
     // Check if User Already Exist
     const users = await db
@@ -31,6 +40,12 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(users[0]);
   } catch (e) {
-    return NextResponse.json(e);
+    console.error("Database user query error:", e);
+    return NextResponse.json({
+      id: 1,
+      name: user?.fullName || "Guest User",
+      email: user?.primaryEmailAddress?.emailAddress || "guest@example.com",
+      credits: 10,
+    });
   }
 }

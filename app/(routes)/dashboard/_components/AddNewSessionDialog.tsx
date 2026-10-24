@@ -15,9 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { ArrowRight, Loader2 } from 'lucide-react';
 import axios from 'axios';
 import DoctorAgentCard, { doctorAgent } from './DoctorAgentCard';
-import { index } from 'drizzle-orm/gel-core';
 import SuggestedDoctorCard from './SuggestedDoctorCard';
-import { div } from 'motion/react-client';
 import { useRouter } from 'next/navigation';
 
 function AddNewSessionDialog() {
@@ -93,7 +91,7 @@ function AddNewSessionDialog() {
         </DialogHeader>
         <DialogFooter>
           <DialogClose>
-            <Button variant={"outline"}>Cancle</Button>
+            <Button variant={"outline"}>Cancel</Button>
           </DialogClose>
 
           {!suggestedDoctors ? (
